@@ -1,0 +1,16 @@
+{
+  "name": "bookStore",
+  "version": "0.0.1",
+  "authors": [
+    "Ariunjargal Batjargal <abatjarg@umass.edu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "/public/lib",
+    "test",
+    "tests"
+  ]
+}
