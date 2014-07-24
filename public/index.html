@@ -7,27 +7,34 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <script>
-        angular.module("bookStore", []);
+        angular.module("bookStore", ["customFilters"]);
     </script>
     <script src="controllers/bookStoreController.js"></script>
+    <script src="filters/customFilters.js"></script>
+    <script src="controllers/productListController.js"></script>
 </head>
 <body ng-controller="bookStoreCtrl">
     <div class="navbar navbar-inverse">
         <a href="#" class="navbar-brand">Book <strong>Store</strong></a>
     </div>
-    <div class="panel panel-default row">
+    <div class="panel panel-default row" ng-controller="productListCtrl">
         <div class="col-xs-3">
-            Book Categories
+            <a ng-click="selectCategory()" class="btn btn-block btn-default btn-lg">Home</a>
+            <a ng-repeat="book in data.books | orderBy:'category' | unique:'category'"
+               ng-click="selectCategory(book)" class="btn btn-block btn-default btn-lg"
+                    ng-class="getCategoryClass(book)">
+                {{book}}
+               </a>
         </div>
         <div class="col-xs-8">
-            <div class="well" ng-repeat="book in data.books">
+            <div class="well" ng-repeat="book in data.books | filter:categoryFilterFn">
                 <h3>
                     <strong>{{book.title}}</strong>
                     <span class="pull-right label label-primary">
                         {{book.price | currency}}
                     </span>
                 </h3>
-                <span class="lead">{{item.author}}</span>
+                <span class="lead"><strong>Author: </strong>{{book.author}}</span>
             </div>
         </div>
     </div>

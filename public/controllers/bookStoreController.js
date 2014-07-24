@@ -1,4 +1,4 @@
-angular.module("bookStore", [])
+angular.module("bookStore")
     .controller('bookStoreCtrl', function($scope){
         $scope.data = {
             books: [
