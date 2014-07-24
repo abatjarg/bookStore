@@ -9,10 +9,27 @@
     <script>
         angular.module("bookStore", []);
     </script>
+    <script src="controllers/bookStoreController.js"></script>
 </head>
-<body>
+<body ng-controller="bookStoreCtrl">
     <div class="navbar navbar-inverse">
         <a href="#" class="navbar-brand">Book <strong>Store</strong></a>
+    </div>
+    <div class="panel panel-default row">
+        <div class="col-xs-3">
+            Book Categories
+        </div>
+        <div class="col-xs-8">
+            <div class="well" ng-repeat="book in data.books">
+                <h3>
+                    <strong>{{book.title}}</strong>
+                    <span class="pull-right label label-primary">
+                        {{book.price | currency}}
+                    </span>
+                </h3>
+                <span class="lead">{{item.author}}</span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
