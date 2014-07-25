@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <title>Book Store</title>
     <script src="lib/angularjs/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <script>
-        angular.module("bookStore", ["customFilters","cart"]);
+        angular.module("bookStore", ["customFilters","cart","ngRoute"])
+                .config(function($routeProvider){
+                    $routeProvider.when('/checkout',{
+                        templateUrl: '/views/checkoutSummary.html'
+                    });
+                    $routeProvider.when('/products',{
+                        templateUrl: '/views/productList.html'
+                    });
+                    $routeProvider.otherwise({
+                        templateUrl: '/views/productList.html'
+                    });
+                });
     </script>
     <script src="controllers/bookStoreController.js"></script>
     <script src="filters/customFilters.js"></script>
     <script src="controllers/productListController.js"></script>
+    <script src="controllers/checkoutControllers.js"></script>
     <script src="cart/cart.js"></script>
 </head>
 <body ng-controller="bookStoreCtrl">
@@ -23,6 +36,6 @@
         Error ({{data.error.status}}). The book data base was not loaded.
         <a href="/index.html" class="alert-link">Click here try again</a>
     </div>
-    <ng-include src="'views/productList.html'"></ng-include>
+    <ng-view></ng-view>
 </body>
 </html>
