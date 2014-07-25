@@ -5,7 +5,7 @@
 angular.module('bookStore')
     .constant('productListActiveClass', 'btn-primary')
     .constant('productListPageCount', 3)
-    .controller('productListCtrl', function($scope, $filter, productListActiveClass, productListPageCount){
+    .controller('productListCtrl', function($scope, $filter, productListActiveClass, productListPageCount, cart){
 
         var selectedCategory = null;
         $scope.selectedPage = 1;
@@ -30,6 +30,10 @@ angular.module('bookStore')
 
         $scope.getPageClass = function(page){
             return $scope.selectedPage == page ? productListActiveClass : "";
+        };
+
+        $scope.addProductToCart = function(product){
+            cart.addProduct(product._id, product.title, product.price);
         };
 
     });

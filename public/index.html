@@ -7,43 +7,22 @@
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <script>
-        angular.module("bookStore", ["customFilters"]);
+        angular.module("bookStore", ["customFilters","cart"]);
     </script>
     <script src="controllers/bookStoreController.js"></script>
     <script src="filters/customFilters.js"></script>
     <script src="controllers/productListController.js"></script>
+    <script src="cart/cart.js"></script>
 </head>
 <body ng-controller="bookStoreCtrl">
     <div class="navbar navbar-inverse">
         <a href="#" class="navbar-brand">Book <strong>Store</strong></a>
+        <cart-summary></cart-summary>
     </div>
-    <div class="panel panel-default row" ng-controller="productListCtrl">
-        <div class="col-xs-3">
-            <a ng-click="selectCategory()" class="btn btn-block btn-default btn-lg">Home</a>
-            <a ng-repeat="book in data.books | orderBy:'category' | unique:'category'"
-               ng-click="selectCategory(book)" class="btn btn-block btn-default btn-lg"
-                    ng-class="getCategoryClass(book)">
-                {{book}}
-               </a>
-        </div>
-        <div class="col-xs-8">
-            <div class="well" ng-repeat="book in data.books | filter:categoryFilterFn | range:selectedPage:pageSize">
-                <h3>
-                    <strong>{{book.title}}</strong>
-                    <span class="pull-right label label-primary">
-                        {{book.price | currency}}
-                    </span>
-                </h3>
-                <span class="lead"><strong>Author: </strong>{{book.author}}</span>
-            </div>
-            <div class="pull-right btn-group">
-                <a ng-repeat="page in data.books | filter:categoryFilterFn | pageCount:pageSize"
-                        ng-click="selectPage($index+1)" class="btn btn-default"
-                        ng-class="getPageClass($index+1)">
-                    {{$index+1}}
-                </a>
-            </div>
-        </div>
+    <div class="alert alert-danger" ng-show="data.error">
+        Error ({{data.error.status}}). The book data base was not loaded.
+        <a href="/index.html" class="alert-link">Click here try again</a>
     </div>
+    <ng-include src="'views/productList.html'"></ng-include>
 </body>
 </html>
