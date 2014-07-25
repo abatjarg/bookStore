@@ -5,4 +5,39 @@
         There are no books in your shopping cart.
         <a href="#/products" class="alert-link">Click here to return to the books</a>
     </div>
+    <div ng-hide="cartData.length == 0">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Book</th>
+                    <th class="text-right">Price</th>
+                    <th class="text-right">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in cartData">
+                    <td class="text-center">{{book.count}}</td>
+                    <td class="text-left">{{book.title}}</td>
+                    <td class="text-right">{{book.price | currency}}</td>
+                    <td class="text-right">{{ (book.price * book.count) | currency}}</td>
+                    <td>
+                        <button ng-click="remove(book.id)" class="btn btn-sm btn-warning">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total: </td>
+                    <td class="text-right">
+                        {{total() | currency}}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="text-center">
+            <a href="#/products" class="btn btn-primary">Continue shopping</a>
+            <a href="#/placeorder" class="btn btn-primary">Place order now</a>
+        </div>
+    </div>
 </div>
